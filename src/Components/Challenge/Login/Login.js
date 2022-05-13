@@ -6,8 +6,22 @@ import { useDispatch } from "react-redux";
 import userSlice from "../store/userSlice";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-
+import GoogleLogin from "react-google-login";
+import { FcGoogle } from 'react-icons/fc';
 const Register = () => {
+	const responseGoogle = (response) => {
+		console.log(response);
+	  }
+	
+	const googleSuccessLogin = (response) => {
+		console.log(response);
+	};
+
+	const googleFailLogin = (err) => {
+		console.log(err);
+	};
+
+
 	const { register, handleSubmit, formState } = useForm();
 
 	// memberitahu pesan gagal dalam regis
@@ -103,8 +117,23 @@ const Register = () => {
 								LOGIN
 							</button>
 						</div>
-
 						<Link to="/register">create new account</Link>
+						<div>
+						<GoogleLogin
+								
+								clientId="46398880938-mp04k5157t8f7nuqke96jnhgn19ugjob.apps.googleusercontent.com"
+								render={(renderProps) => (
+									<button onClick={renderProps.onClick} disabled={renderProps.disabled} className={style.google_login}>
+										<span>{FcGoogle}</span>Login with Google
+									</button>
+								)}
+								buttonText="Login"
+								onSuccess={googleSuccessLogin}
+								onFailure={googleFailLogin}
+								cookiePolicy={"single_host_origin"}
+								{...navigate("/user")}
+							/>
+						</div>
 					</form>
 				</div>
 			</div>
